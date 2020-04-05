@@ -98,7 +98,7 @@ module.exports = function (bucketName) {
         });
     })
     .then(() => {
-      return readFile("index.html", (err, data) => {
+      return readFile("index.html", "utf-8", (err, data) => {
         if (err) {
           console.log("Read File Error: ", err);
         } else {
