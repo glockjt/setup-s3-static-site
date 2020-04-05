@@ -37,7 +37,7 @@ const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
 module.exports = function (bucketName) {
   const bucketParams = {
     Bucket: bucketName,
-    ACL: "public-read",
+    // ACL: "public-read",
   };
 
   const staticHostParams = {
@@ -48,6 +48,19 @@ module.exports = function (bucketName) {
     },
   };
 
+  const policyParams = {
+    Version: "2012-10-17",
+    Statement: [
+      {
+        Sid: "PublicReadGetObject",
+        Effect: "Allow",
+        Principal: "*",
+        Action: "s3:GetObject",
+        Resource: `arn:aws:s3:::${bucketName}/*`,
+      },
+    ],
+  };
+
   return s3
     .createBucket(bucketParams)
     .promise()
@@ -55,7 +68,7 @@ module.exports = function (bucketName) {
       if (err) {
         console.log(`Create Bucket Error: `, err);
       } else {
-        console.log("Bucket URL: ", data.Location);
+        console.log("Create Bucket: ", JSON.stringify(data, null, 2));
         return;
       }
     })
@@ -66,7 +79,33 @@ module.exports = function (bucketName) {
           if (err) {
             console.log(`Put Bucket Website Error: `, err);
           } else {
-            console.log("Success");
+            console.log("Put Bucket Website: ", JSON.stringify(data, null, 2));
+            return data;
+          }
+        });
+    })
+    .then(() => {
+      s3.putBucketPolicy(policyParams)
+        .promise()
+        .then((data, err) => {
+          if (err) {
+            console.log("Put Bucket Policy Error: ", error);
+          } else {
+            console.log("Put Bucket Policy: ", JSON.stringify(data, null, 2));
+            return data;
+          }
+        });
+    })
+    .then(() => {
+      s3.putObject({
+        Key: "index.html",
+      })
+        .promise()
+        .then((data, err) => {
+          if (err) {
+            console.log("Put Bucket Error: ", error);
+          } else {
+            console.log("Put Bucket: ", JSON.stringify(data, null, 2));
             return data;
           }
         });
