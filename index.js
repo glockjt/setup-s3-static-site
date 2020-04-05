@@ -7,8 +7,8 @@ async function run() {
     // const bucketName = core.getInput("bucket-name");
     const username = github.context.actor;
     console.log(`username: `, username);
-    const pr = github.context.payload.pull_request;
-    console.log(`pr: `, pr);
+    const payload = github.context.payload;
+    console.log(JSON.stringify(payload, null, 2));
     // const result = await createS3Bucket(bucketName);
   } catch (error) {
     core.setFailed(error.message);
