@@ -36,12 +36,12 @@ const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
 
 module.exports = function (bucketName) {
   const bucketParams = {
-    Bucket: process.argv[2],
+    Bucket: bucketName,
     ACL: "public-read",
   };
 
   const staticHostParams = {
-    Bucket: process.argv[2],
+    Bucket: bucketName,
     WebsiteConfiguration: {
       IndexDocument: { Suffix: "index.html" },
       ErrorDocument: { Key: "index.html" },

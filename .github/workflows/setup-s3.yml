@@ -1,5 +1,5 @@
 name: S3 Static Site
-on: [push, pull_request]
+on: pull_request
 
 jobs:
   create:
