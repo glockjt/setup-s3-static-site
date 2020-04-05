@@ -50,16 +50,19 @@ module.exports = function (bucketName) {
   };
 
   const policyParams = {
-    Version: "2012-10-17",
-    Statement: [
-      {
-        Sid: "PublicReadGetObject",
-        Effect: "Allow",
-        Principal: "*",
-        Action: "s3:GetObject",
-        Resource: `arn:aws:s3:::${bucketName}/*`,
-      },
-    ],
+    Bucket: bucketName,
+    Policy: JSON.stringify({
+      Version: "2012-10-17",
+      Statement: [
+        {
+          Sid: "PublicReadGetObject",
+          Effect: "Allow",
+          Principal: "*",
+          Action: "s3:GetObject",
+          Resource: `arn:aws:s3:::${bucketName}/*`,
+        },
+      ],
+    }),
   };
 
   return s3
@@ -104,8 +107,9 @@ module.exports = function (bucketName) {
         } else {
           return s3
             .putObject({
+              Bucket: bucketName,
               Key: "index.html",
-              Body: data,
+              Body: JSON.stringify(data),
             })
             .promise()
             .then((data, err) => {
