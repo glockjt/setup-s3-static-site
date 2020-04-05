@@ -11,7 +11,7 @@ async function run() {
     // console.log(JSON.stringify(payload, null, 2));
     console.log(`prLabel: `, prLabel.replace(":", "-"));
     const result = await createS3Bucket(prLabel.replace(":", "-"));
-    core.setOutput(result);
+    core.setOutput("result", result);
   } catch (error) {
     core.setFailed(error.message);
   }

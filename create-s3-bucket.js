@@ -1,3 +1,4 @@
+const { readFile } = require("fs");
 const AWS = require("aws-sdk");
 AWS.config.region = process.env.AWS_DEFAULT_REGION || "us-east-1";
 AWS.config.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
@@ -37,7 +38,7 @@ const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
 module.exports = function (bucketName) {
   const bucketParams = {
     Bucket: bucketName,
-    // ACL: "public-read",
+    ACL: "public-read",
   };
 
   const staticHostParams = {
@@ -97,17 +98,25 @@ module.exports = function (bucketName) {
         });
     })
     .then(() => {
-      s3.putObject({
-        Key: "index.html",
-      })
-        .promise()
-        .then((data, err) => {
-          if (err) {
-            console.log("Put Bucket Error: ", error);
-          } else {
-            console.log("Put Bucket: ", JSON.stringify(data, null, 2));
-            return data;
-          }
-        });
+      return readFile("index.html", (err, data) => {
+        if (err) {
+          console.log("Read File Error: ", err);
+        } else {
+          return s3
+            .putObject({
+              Key: "index.html",
+              Body: data,
+            })
+            .promise()
+            .then((data, err) => {
+              if (err) {
+                console.log("Put Bucket Error: ", error);
+              } else {
+                console.log("Put Bucket: ", JSON.stringify(data, null, 2));
+                return data;
+              }
+            });
+        }
+      });
     });
 };
