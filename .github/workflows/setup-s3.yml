@@ -8,6 +8,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Create S3 Site
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         id: s3
         uses: ./
       - name: S3 URL

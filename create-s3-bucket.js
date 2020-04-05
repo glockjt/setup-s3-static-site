@@ -1,5 +1,5 @@
 const AWS = require("aws-sdk");
-AWS.config.region = process.env.region || "us-east-1";
+AWS.config.region = process.env.AWS_DEFAULT_REGION || "us-east-1";
 AWS.config.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
 AWS.config.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
