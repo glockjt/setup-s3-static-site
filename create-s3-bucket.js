@@ -34,7 +34,7 @@ const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
 //   }
 // });
 
-modules.export = function (bucketName) {
+module.exports = function (bucketName) {
   const bucketParams = {
     Bucket: process.argv[2],
     ACL: "public-read",
