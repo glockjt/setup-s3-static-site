@@ -9,6 +9,6 @@ jobs:
         uses: actions/checkout@v2
       - name: Create S3 Site
         id: s3
-        uses: actions/setup-s3-static-site@v1
+        uses: ./
       - name: S3 URL
         run: echo ${{ steps.s3.outputs }}
