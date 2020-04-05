@@ -109,6 +109,7 @@ module.exports = function (bucketName) {
             .putObject({
               Bucket: bucketName,
               Key: "index.html",
+              ContentType: "text/html",
               Body: data,
             })
             .promise()
