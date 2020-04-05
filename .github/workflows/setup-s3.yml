@@ -1,0 +1,14 @@
+name: S3 Static Site
+on: [push, pull_request]
+
+jobs:
+  create:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Create S3 Site
+        id: s3
+        uses: ../../
+      - name: S3 URL
+        run: echo ${{ steps.s3.outputs }}

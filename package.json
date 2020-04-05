@@ -1,0 +1,25 @@
+{
+  "name": "setup-s3-static-site",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/glockjt/setup-s3-static-site.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/glockjt/setup-s3-static-site/issues"
+  },
+  "homepage": "https://github.com/glockjt/setup-s3-static-site#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.3",
+    "@actions/github": "^2.1.1",
+    "aws-sdk": "^2.653.0"
+  }
+}
