@@ -7,9 +7,11 @@ async function run() {
     // const bucketName = core.getInput("bucket-name");
     const username = github.context.actor;
     console.log(`username: `, username);
-    const payload = github.context.payload;
-    console.log(JSON.stringify(payload, null, 2));
-    // const result = await createS3Bucket(bucketName);
+    const prLabel = github.context.payload.pull_request.head.label;
+    // console.log(JSON.stringify(payload, null, 2));
+    console.log(`prLabel: `, prLabel);
+    const result = await createS3Bucket(prLabel);
+    core.setOutput(result);
   } catch (error) {
     core.setFailed(error.message);
   }
