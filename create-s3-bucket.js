@@ -38,7 +38,7 @@ const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
 module.exports = function (bucketName) {
   const bucketParams = {
     Bucket: bucketName,
-    ACL: "public-read",
+    // ACL: "public-read",
   };
 
   const staticHostParams = {
@@ -109,7 +109,7 @@ module.exports = function (bucketName) {
             .putObject({
               Bucket: bucketName,
               Key: "index.html",
-              Body: JSON.stringify(data),
+              Body: data,
             })
             .promise()
             .then((data, err) => {
