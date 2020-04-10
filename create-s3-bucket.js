@@ -36,6 +36,7 @@ const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
 // });
 
 module.exports = function (bucketName) {
+  let url = "";
   const bucketParams = {
     Bucket: bucketName,
     // ACL: "public-read",
@@ -84,6 +85,10 @@ module.exports = function (bucketName) {
             console.log(`Put Bucket Website Error: `, err);
           } else {
             console.log("Put Bucket Website: ", JSON.stringify(data, null, 2));
+            url = `http://${data.Location.replace(
+              "/",
+              ""
+            )}.s3-website-us-east-1.amazonaws.com`;
             return data;
           }
         });
@@ -118,7 +123,8 @@ module.exports = function (bucketName) {
                 console.log("Put Bucket Error: ", error);
               } else {
                 console.log("Put Bucket: ", JSON.stringify(data, null, 2));
-                return data;
+                // return data;
+                return url;
               }
             });
         }

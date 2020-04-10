@@ -1,8 +1,5 @@
 name: "Setup S3 Static Site"
 description: "Setup static site for test prs"
-inputs:
-  repo-token:
-    required: true
 outputs:
   url:
     description: "URL to newly created bucket"

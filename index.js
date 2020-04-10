@@ -10,8 +10,8 @@ async function run() {
     const prLabel = github.context.payload.pull_request.head.label;
     // console.log(JSON.stringify(payload, null, 2));
     console.log(`prLabel: `, prLabel.replace(":", "-"));
-    const result = await createS3Bucket(prLabel.replace(":", "-"));
-    core.setOutput("result", result);
+    const url = await createS3Bucket(prLabel.replace(":", "-"));
+    core.setOutput("url", url);
   } catch (error) {
     core.setFailed(error.message);
   }
