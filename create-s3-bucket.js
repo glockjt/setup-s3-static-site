@@ -74,6 +74,10 @@ module.exports = function (bucketName) {
         console.log(`Create Bucket Error: `, err);
       } else {
         console.log("Create Bucket: ", JSON.stringify(data, null, 2));
+        url = `http://${data.Location.replace(
+          "/",
+          ""
+        )}.s3-website-us-east-1.amazonaws.com`;
         return;
       }
     })
@@ -85,10 +89,6 @@ module.exports = function (bucketName) {
             console.log(`Put Bucket Website Error: `, err);
           } else {
             console.log("Put Bucket Website: ", JSON.stringify(data, null, 2));
-            url = `http://${data.Location.replace(
-              "/",
-              ""
-            )}.s3-website-us-east-1.amazonaws.com`;
             return data;
           }
         });
