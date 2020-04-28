@@ -5,8 +5,8 @@ jobs:
   create:
     runs-on: ubuntu-latest
     steps:
-      - name: Github PR
-        run: echo "${{ github.actor }}-${{ github.head_ref }}"
+      # - name: Github PR
+      #   run: echo "${{ github.actor }}-${{ github.head_ref }}"
       - name: Checkout
         uses: actions/checkout@v2
       - name: Create or Update S3 Site
