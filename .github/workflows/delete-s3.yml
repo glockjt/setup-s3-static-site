@@ -1,5 +1,8 @@
 name: Delete S3 Static Site
 on:
+  push:
+    branches:
+      - master
   pull_request:
     branches:
       - "!master"
@@ -14,4 +17,6 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: aws s3 rb s3://${{ github.actor }}-${{ github.head_ref }} --force
+        # run: aws s3 rb s3://${{ github.actor }}-${{ github.head_ref }} --force
+        run: |
+          echo "base: ${{ github.base_ref }} head: ${{ github.head_ref }}"
