@@ -14,10 +14,16 @@ async function run() {
     // console.log(`prLabel: `, prLabel.replace(":", "-"));
     const bucketName = prLabel.replace(":", "-");
     const bucketExists = s3BucketExists(bucketName);
+
     if (!bucketExists) {
-      const url = await createS3Bucket(bucketName);
-      core.setOutput("url", url);
+      await createS3Bucket(bucketName);
     }
+    core.setOutput(
+      "url",
+      `http://${bucketName}.s3-website-${
+        process.env.AWS_DEFAULT_REGION || "us-east-1"
+      }.amazonaws.com`
+    );
     syncS3Bucket(buildDir, bucketName);
     core.setOutput("status", "Files synced");
   } catch (error) {

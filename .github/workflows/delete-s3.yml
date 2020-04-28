@@ -1,0 +1,14 @@
+name: Delete S3 Static Site
+on:
+  pull_request:
+    branches:
+      - "!master"
+    types: [closed]
+
+jobs:
+  delete-bucket:
+    name: S3 Delete Bucket
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete bucket
+        run: aws s3 rb s3://${{ github.head_ref }} --force
