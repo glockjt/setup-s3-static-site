@@ -13,5 +13,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         id: s3
         uses: ./
+        with:
+          build-dir: "build"
       - name: S3 URL
-        run: echo ${{ steps.s3.outputs }}
+        run: echo ${{ steps.s3.outputs.url }}
