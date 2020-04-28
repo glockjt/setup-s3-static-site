@@ -1,14 +1,23 @@
 name: S3 Static Site
-on: [push, pull_request]
+on: pull_request
 
 jobs:
   create:
     runs-on: ubuntu-latest
     steps:
+      # - name: Github PR
+      #   run: echo "${{ github.actor }}-${{ github.head_ref }}"
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Create S3 Site
+      - name: Create or Update S3 Site
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         id: s3
         uses: ./
-      - name: S3 URL
-        run: echo ${{ steps.s3.outputs }}
+        with:
+          build-dir: "build"
+      - name: Output
+        run: |
+          echo "PR URL: ${{ steps.s3.outputs.url }}"
+          echo "Status: ${{ steps.s3.outputs.status }}"

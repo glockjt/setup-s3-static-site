@@ -1,11 +1,15 @@
 name: "Setup S3 Static Site"
 description: "Setup static site for test prs"
 inputs:
-  repo-token:
+  build-dir:
+    description: "Directory of your website files"
     required: true
+    default: "build"
 outputs:
   url:
     description: "URL to newly created bucket"
+  status:
+    descriptions: "Status of create/update bucket"
 runs:
   using: "node12"
   main: "index.js"
