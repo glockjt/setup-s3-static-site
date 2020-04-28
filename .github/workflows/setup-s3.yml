@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Create S3 Site
+      - name: Create or Update S3 Site
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -15,5 +15,7 @@ jobs:
         uses: ./
         with:
           build-dir: "build"
-      - name: S3 URL
-        run: echo ${{ steps.s3.outputs.url }}
+      - name: Output
+        run: |
+          echo "PR URL: ${{ steps.s3.outputs.url }}"
+          echo "Status: ${{ steps.s3.outputs.status }}"
