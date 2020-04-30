@@ -1,6 +1,9 @@
 name: "Setup S3 Static Site"
 description: "Setup static site for test prs"
 inputs:
+  token:
+    description: "Github Token"
+    required: true
   build-dir:
     description: "Directory of your website files"
     required: true

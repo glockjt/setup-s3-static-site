@@ -1,8 +1,9 @@
-name: S3 Static Site
+name: Create or Update S3 Static Site
 on: pull_request
 
 jobs:
   create:
+    name: Create or Update S3 Bucket
     runs-on: ubuntu-latest
     steps:
       # - name: Github PR
@@ -16,6 +17,7 @@ jobs:
         id: s3
         uses: ./
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           build-dir: "build"
       - name: Output
         run: |
