@@ -13,7 +13,7 @@ async function run() {
     // console.log(JSON.stringify(payload, null, 2));
     // console.log(`prLabel: `, prLabel.replace(":", "-"));
     const bucketName = prLabel.replace(":", "-");
-    const bucketExists = false;
+    let bucketExists = false;
 
     try {
       bucketExists = s3BucketExists(bucketName);
