@@ -29,7 +29,7 @@ async function run() {
     );
 
     const octokit = new github.GitHub(token);
-    await octokit.pulls.createComment({
+    await octokit.pulls.createCommitComment({
       owner: "HE FE Bot",
       repo: github.context.repo.repo,
       pull_number: github.context.payload.pull_request.number,
