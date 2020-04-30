@@ -21,6 +21,8 @@ async function run() {
       bucketExists = false;
     }
 
+    console.log(`bucketExists: `, bucketExists);
+
     if (!bucketExists) {
       await createS3Bucket(bucketName);
     }
