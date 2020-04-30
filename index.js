@@ -33,7 +33,7 @@ async function run() {
       owner: "HE FE Bot",
       repo: github.context.repo.repo,
       pull_number: github.context.payload.pull_request.number,
-      commit_sha: github.context.payload.pull_request.head.sha,
+      commit_sha: github.context.sha,
       body: `PR URL: http://${bucketName}.s3-website-${
         process.env.AWS_DEFAULT_REGION || "us-east-1"
       }.amazonaws.com`,
