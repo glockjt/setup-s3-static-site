@@ -13,7 +13,9 @@ async function run() {
     // console.log(JSON.stringify(payload, null, 2));
     // console.log(`prLabel: `, prLabel.replace(":", "-"));
     const bucketName = prLabel.replace(":", "-");
-    const bucketExists = s3BucketExists(bucketName);
+    const bucketExists = await s3BucketExists(bucketName);
+
+    console.log(`bucketExists: `, bucketExists);
 
     if (!bucketExists) {
       await createS3Bucket(bucketName);
