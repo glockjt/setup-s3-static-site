@@ -28,7 +28,7 @@ async function run() {
       }.amazonaws.com`
     );
 
-    const octokit = github.GitHub(token);
+    const octokit = new github.GitHub(token);
     await octokit.pulls.createComment({
       owner: "HE FE Bot",
       repo: github.context.repo.repo,
