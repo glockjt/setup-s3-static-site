@@ -20,11 +20,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: sandbox
-          path: artifact/sandbox.txt
+          path: artifacts/sandbox.txt
       - name: Read artifact
-        id: artifact
+        id: artifacts
         run: |
-          read -r bucketName<artifact/sandbox.txt
+          read -r bucketName<artifacts/sandbox.txt
           echo "::set-output name=bucketName::$bucketName"
       - name: Delete bucket
         env:
@@ -32,4 +32,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         # run: aws s3 rb s3://${{ github.actor }}-${{ github.head_ref }} --force
         run: |
-          echo " ${{ steps.artifact.outputs.bucketName }}"
+          echo "${{ steps.artifacts.outputs.bucketName }}"
