@@ -1,13 +1,13 @@
 name: Delete S3 Static Site
 on:
-  # pull_request
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - "!master"
-    types: [closed]
+  pull_request
+  # push:
+  #   branches:
+  #     - master
+  # pull_request:
+  #   branches:
+  #     - "!master"
+  #   types: [closed]
 
 jobs:
   delete-bucket:
