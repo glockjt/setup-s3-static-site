@@ -11,7 +11,7 @@ async function run() {
     // console.log(`username: `, username);
     const prLabel = github.context.payload.pull_request.head.label;
 
-    console.log(JSON.stringify(github.context, null, 2));
+    console.log(JSON.stringify(github.context.repo, null, 2));
     // console.log(`prLabel: `, prLabel.replace(":", "-"));
     const bucketName = prLabel.replace(":", "-");
     const bucketExists = await s3BucketExists(bucketName);
@@ -30,7 +30,7 @@ async function run() {
 
     const octokit = new github.GitHub(token);
     await octokit.repos.createCommitComment({
-      owner: "HE FE Bot",
+      owner: github.context.actor,
       repo: github.context.repo.repo,
       pull_number: github.context.payload.pull_request.number,
       commit_sha: github.context.sha,
