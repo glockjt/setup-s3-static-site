@@ -11,7 +11,7 @@ async function run() {
     // console.log(`username: `, username);
     const prLabel = github.context.payload.pull_request.head.label;
 
-    // console.log(JSON.stringify(payload, null, 2));
+    console.log(JSON.stringify(github.context.payload, null, 2));
     // console.log(`prLabel: `, prLabel.replace(":", "-"));
     const bucketName = prLabel.replace(":", "-");
     const bucketExists = await s3BucketExists(bucketName);
