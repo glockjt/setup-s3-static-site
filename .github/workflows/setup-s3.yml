@@ -21,3 +21,12 @@ jobs:
         run: |
           echo "PR URL: ${{ steps.s3.outputs.url }}"
           echo "Status: ${{ steps.s3.outputs.status }}"
+      - name: Create artifact
+        run: |
+          mkdir -p artifacts
+          echo "${{ github.actor }}-${{github.head_ref }}" > artifacts/sandbox.txt
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: sandbox
+          path: artifacts/sandbox.txt
