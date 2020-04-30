@@ -29,11 +29,11 @@ async function run() {
     );
 
     const octokit = new github.GitHub(token);
-    await octokit.repos.createCommitComment({
+    await octokit.pulls.createReview({
       owner: github.context.actor,
       repo: github.context.repo.repo,
       pull_number: github.context.payload.pull_request.number,
-      commit_sha: github.context.sha,
+      // commit_sha: github.context.sha,
       body: `PR URL: http://${bucketName}.s3-website-${
         process.env.AWS_DEFAULT_REGION || "us-east-1"
       }.amazonaws.com`,
