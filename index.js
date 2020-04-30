@@ -11,7 +11,7 @@ async function run() {
     // console.log(`username: `, username);
     const prLabel = github.context.payload.pull_request.head.label;
 
-    console.log(JSON.stringify(github.context.payload, null, 2));
+    console.log(JSON.stringify(github.context, null, 2));
     // console.log(`prLabel: `, prLabel.replace(":", "-"));
     const bucketName = prLabel.replace(":", "-");
     const bucketExists = await s3BucketExists(bucketName);
@@ -33,7 +33,7 @@ async function run() {
       owner: "HE FE Bot",
       repo: github.context.repo.repo,
       pull_number: github.context.payload.pull_request.number,
-      commit_id: github.context.payload.pull_request.head.sha,
+      commit_sha: github.context.payload.pull_request.head.sha,
       body: `PR URL: http://${bucketName}.s3-website-${
         process.env.AWS_DEFAULT_REGION || "us-east-1"
       }.amazonaws.com`,
