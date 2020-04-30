@@ -5,13 +5,13 @@ AWS.config.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
 
-module.exports = function s3BucketExists(bucketName) {
+module.exports = async function s3BucketExists(bucketName) {
   const bucketParams = {
     Bucket: bucketName,
     // ACL: "public-read",
   };
 
-  return s3
+  const exists = await s3
     .headBucket(bucketParams)
     .promise()
     .then(() => {
@@ -22,4 +22,6 @@ module.exports = function s3BucketExists(bucketName) {
       console.log("false");
       return false;
     });
+
+  return exists;
 };
