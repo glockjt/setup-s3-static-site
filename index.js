@@ -6,11 +6,12 @@ const syncS3Bucket = require("./sync-s3-bucket");
 
 async function run() {
   try {
+    const token = core.getInput("token");
     const buildDir = core.getInput("build-dir");
-    const username = github.context.actor;
     // console.log(`username: `, username);
     const prLabel = github.context.payload.pull_request.head.label;
-    // console.log(JSON.stringify(payload, null, 2));
+
+    console.log(JSON.stringify(github.context, null, 2));
     // console.log(`prLabel: `, prLabel.replace(":", "-"));
     const bucketName = prLabel.replace(":", "-");
     const bucketExists = await s3BucketExists(bucketName);
@@ -26,6 +27,18 @@ async function run() {
         process.env.AWS_DEFAULT_REGION || "us-east-1"
       }.amazonaws.com`
     );
+
+    const octokit = new github.GitHub(token);
+    await octokit.issues.createComment({
+      owner: github.context.actor,
+      repo: github.context.repo.repo,
+      issue_number: github.context.payload.pull_request.number,
+      // commit_sha: github.context.sha,
+      body: `PR URL: http://${bucketName}.s3-website-${
+        process.env.AWS_DEFAULT_REGION || "us-east-1"
+      }.amazonaws.com`,
+    });
+
     syncS3Bucket(buildDir, bucketName);
     core.setOutput("status", "Files synced");
   } catch (error) {
